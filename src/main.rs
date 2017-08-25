@@ -30,14 +30,11 @@ impl Perceptron {
         }
         heavyside(sum)
     }
-}
-
-fn heavyside(value: f32) -> i32 {
-    let zero = 0.0f32;
-    match value.partial_cmp(&zero).unwrap() {
-        Ordering::Less => {0},
-        Ordering::Equal => {0},
-        Ordering::Greater => {1}
+    fn adjust(&mut self, inputs:Vec<i32>, delta:i32, learningRate:f32) {
+        for i in 0..inputs.len(){
+            self.weights[i] += (inputs[i] as f32) * (delta as f32) * learningRate;
+        }
+        self.bias += (delta as f32) * learningRate;
     }
 }
 
@@ -47,6 +44,15 @@ fn newPerceptron(inputs: i32) -> Perceptron {
         randomWeights.push(randomNumber());
     }
     Perceptron { weights: randomWeights, bias: randomNumber() }
+}
+
+fn heavyside(value: f32) -> i32 {
+    let zero = 0.0f32;
+    match value.partial_cmp(&zero).unwrap() {
+        Ordering::Less => {0},
+        Ordering::Equal => {0},
+        Ordering::Greater => {1}
+    }
 }
 
 fn randomNumber() -> f32 {
