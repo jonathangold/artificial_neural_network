@@ -11,12 +11,25 @@ fn main() {
     println!("{}", rntest);
     let perctest = newPerceptron(5);
     println!("{:?}", perctest);
+    let vec = vec!(1, 0, 1, 0, 1);
+    let proctest = perctest.process(vec);
+    println!("{}", proctest);
 }
 
 #[derive(Debug)]
 struct Perceptron {
     weights: Vec<f32>,
     bias: f32
+}
+
+impl Perceptron {
+    fn process(&self, inputs:Vec<i32>) -> i32 {
+        let mut sum = self.bias;
+        for i in 0..inputs.len() {
+            sum = (inputs[i] as f32) * &self.weights[i];    
+        }
+        heavyside(sum)
+    }
 }
 
 fn heavyside(value: f32) -> i32 {
@@ -40,3 +53,4 @@ fn randomNumber() -> f32 {
     let unscaled = rand::thread_rng().gen_range(-10000, 10001);
     (unscaled as f32) / 10000.0
 }
+
