@@ -1,0 +1,7 @@
+[package]
+name = "artificial_neural_network"
+version = "0.1.0"
+authors = ["Jonathan Gold <jonathan.e.gold@gmail.com>"]
+
+[dependencies]
+rand = "0.3"
