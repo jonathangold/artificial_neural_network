@@ -14,7 +14,7 @@ fn f(x:i32) -> i32 {
     a * x + b
 }
 
-fn isAboveLine(point:Vec<i32>, f:&Fn(i32) -> i32) -> i32 {
+fn isAboveLine(point:&Vec<i32>, f:&Fn(i32) -> i32) -> i32 {
     let x = point[0];
     let y = point[1];
     match x.cmp(&f(x)) {
@@ -29,8 +29,8 @@ fn train(p: perceptron::Perceptron, iters: i32, rate: f32) {
         point.push(randInt());
         point.push(randInt());
         let x = point[0];
-        let actual = p.process(point.to_vec());
-        let expected = isAboveLine(point, &f);
+        let actual = p.process(&point);
+        let expected = isAboveLine(&point, &f);
         let delta = expected - actual;                           
     }
 }

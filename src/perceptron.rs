@@ -11,12 +11,12 @@ pub struct Perceptron {
 }
 
 impl Perceptron {
-    pub fn process(&self, inputs:Vec<i32>) -> i32 {
+    pub fn process(&self, inputs:&Vec<i32>) -> i32 {
         let mut sum = self.bias;
         for i in 0..inputs.len() {
             sum = (inputs[i] as f32) * &self.weights[i];    
         }
-        heavyside(sum)
+        heavyside(&sum)
     }
     pub fn adjust(&mut self, inputs:Vec<i32>, delta:i32, learningRate:f32) {
         for i in 0..inputs.len(){
@@ -34,7 +34,7 @@ pub fn newPerceptron(inputs: i32) -> Perceptron {
     Perceptron { weights: randomWeights, bias: randomNumber() }
 }
 
-fn heavyside(value: f32) -> i32 {
+fn heavyside(value: &f32) -> i32 {
     let zero = 0.0f32;
     match value.partial_cmp(&zero).unwrap() {
         Ordering::Less => {0},
